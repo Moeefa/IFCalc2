@@ -57,7 +57,7 @@ export default function Yearly() {
           ))}
         </div>
       </CardContent>
-      <CardFooter className="flex flex-col border-t pt-4 items-center justify-center">
+      <CardFooter className="flex bg-muted rounded-b-xl flex-col border-t pt-4 items-center justify-center">
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
           {Number(result.toPrecision(2)) < 6 ? "Reprovado" : "Aprovado"}
         </h4>

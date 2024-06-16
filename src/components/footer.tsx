@@ -15,7 +15,7 @@ import { contributors } from "@/auth";
 
 export const Footer = () => {
   return (
-    <footer className="border-t p-2 h-14 bg-card w-full flex gap-4 justify-center items-center">
+    <footer className="border-t p-2 h-14 bg-background w-full flex gap-4 justify-center items-center">
       <Avatar>
         <AvatarImage
           src="https://avatars.githubusercontent.com/u/32604322?v=4"
