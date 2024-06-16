@@ -33,11 +33,9 @@ export type SuapResponse = {
 };
 
 export type ReportResponse =
-  | "Não encontrado."
   | "Unauthorized"
-  | "An internal error occurred"
+  | "Not Found"
   | {
-      frequency: number;
       subjects: {
         name: string;
         grades: string[];
