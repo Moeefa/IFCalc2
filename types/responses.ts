@@ -32,15 +32,13 @@ export type SuapResponse = {
   media_final_disciplina: string;
 };
 
-export type ReportResponse =
-  | "Unauthorized"
-  | "Not Found"
-  | {
-      subjects: {
-        name: string;
-        grades: string[];
-        final: string;
-        frequency: number;
-        studying: boolean;
-      }[];
-    };
+export type Subject = {
+  id: string;
+  name: string;
+  grades: string[];
+  final: string;
+  frequency: number;
+  studying: boolean;
+};
+
+export type ReportResponse = "Unauthorized" | "Not Found" | Subject[];

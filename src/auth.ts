@@ -1,31 +1,46 @@
 import NextAuth, { type NextAuthConfig } from "next-auth";
 import type { Contributor } from "../types/utils";
+import type { Provider } from "next-auth/providers";
 
+/*
+ * Contributors that helped adding more auth providers.
+ */
 export const contributors: Contributor[] = [];
 
+const providers: Provider[] = [
+  {
+    id: "suap_ifmt",
+    name: "Mato Grosso",
+    type: "oauth",
+    token: "https://suap.ifmt.edu.br/o/token/",
+    userinfo: "https://suap.ifmt.edu.br/api/eu/",
+    authorization: {
+      url: "https://suap.ifmt.edu.br/o/authorize",
+      params: { scope: "email identificacao" },
+    },
+    profile(profile) {
+      return {
+        id: profile.identificacstao,
+        ...profile,
+      };
+    },
+  },
+];
+
+export const providerMap = providers.map((provider) => {
+  if (typeof provider === "function") {
+    const providerData = provider();
+    return { id: providerData.id, name: providerData.name };
+  } else {
+    return { id: provider.id, name: provider.name };
+  }
+});
+
 export const config = {
+  providers,
   pages: {
     signIn: "/auth",
   },
-  providers: [
-    {
-      id: "suap_ifmt",
-      name: "Mato Grosso",
-      type: "oauth",
-      token: "https://suap.ifmt.edu.br/o/token/",
-      userinfo: "https://suap.ifmt.edu.br/api/eu/",
-      authorization: {
-        url: "https://suap.ifmt.edu.br/o/authorize",
-        params: { scope: "email identificacao" },
-      },
-      profile(profile) {
-        return {
-          id: profile.identificacstao,
-          ...profile,
-        };
-      },
-    },
-  ],
   session: {
     strategy: "jwt",
     maxAge: 4 * 60 * 60,

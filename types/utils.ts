@@ -7,13 +7,3 @@ export type Contributor = {
     url: string;
   }[];
 };
-
-export type Provider = {
-  [key: string]: {
-    callbackUrl: string;
-    id: string;
-    name: string;
-    signinUrl: string;
-    type: string;
-  };
-};
