@@ -42,7 +42,7 @@ async function getData(): Promise<ReportResponse> {
       cache: "no-store",
       signal: AbortSignal.timeout(15_000),
       headers: {
-        Authorization: `Bearer ${session?.access_token}`,
+        Authorization: `Bearer ${session.access_token}`,
       },
     }
   );
@@ -98,7 +98,7 @@ async function getData(): Promise<ReportResponse> {
     ];
   }, []);
 
-  return { subjects };
+  return subjects;
 }
 
 export default async function Home() {

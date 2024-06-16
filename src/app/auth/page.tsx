@@ -68,7 +68,6 @@ export default function SignIn() {
           <CardFooter className="mt-auto">
             <small className="text-xs text-pretty font-medium leading-none text-center text-muted-foreground">
               Quer nos ajudar a incluir mais Intitutos Federais nessa lista?
-              <br />
               Entre em contato:
               <div className="flex flex-wrap gap-1 justify-center mt-1">
                 {socials.map((social, i) => (
