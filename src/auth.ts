@@ -1,13 +1,16 @@
 import NextAuth, { type NextAuthConfig } from "next-auth";
+import type { Contributor } from "../types/utils";
+
+export const contributors: Contributor[] = [];
 
 export const config = {
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/auth",
   },
   providers: [
     {
-      id: "suap",
-      name: "SUAP - IFMT",
+      id: "suap_ifmt",
+      name: "Mato Grosso",
       type: "oauth",
       token: "https://suap.ifmt.edu.br/o/token/",
       userinfo: "https://suap.ifmt.edu.br/api/eu/",
