@@ -54,7 +54,7 @@ export default function RootLayout({
         <Providers>
           <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="flex flex-col items-center justify-center flex-1 relative container mt-20 mb-4 space-y-4">
+            <main className="flex flex-col items-center justify-center flex-1 relative px-8 mt-20 mb-4 space-y-4">
               {children}
             </main>
             <Footer />
