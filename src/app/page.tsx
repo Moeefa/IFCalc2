@@ -44,6 +44,8 @@ async function getData(): Promise<ReportResponse> {
     );
     const json: SuapResponse[] = await res.json();
 
+    console.log("json", json);
+
     const filtered = json.filter((a) => a.situacao !== "Transferido");
     const data = filtered.reduce((a: any, b) => {
       const grades = [
