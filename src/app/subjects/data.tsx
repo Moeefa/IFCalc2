@@ -93,7 +93,7 @@ export default async function Data() {
   if (data === "Unauthorized")
     return (
       <div className="flex items-center justify-center">
-        <p className="leading-7 [&:not(:first-child)]:mt-6 mt-6 max-w-48 text-center text-pretty">
+        <p className="leading-7 max-w-48 text-center text-pretty">
           Entre com o SUAP para visualizar suas matérias e notas.
         </p>
       </div>
@@ -102,7 +102,7 @@ export default async function Data() {
   if (data === "Not Found")
     return (
       <div className="flex items-center justify-center">
-        <p className="leading-7 [&:not(:first-child)]:mt-6 mt-6 max-w-48 text-center text-pretty">
+        <p className="leading-7 max-w-48 text-center text-pretty">
           Nenhuma matéria encontrada.
         </p>
       </div>
