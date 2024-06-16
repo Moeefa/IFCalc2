@@ -31,19 +31,6 @@ async function getData(): Promise<ReportResponse> {
   console.log("session", session);
 
   try {
-    return {
-      subjects: [
-        {
-          name: "Matemática",
-          grades: ["8.0", "7.0", "8.0", "7.0"],
-          final: "7.5",
-          frequency: 0,
-          studying: false,
-        },
-      ],
-      frequency: 0,
-    };
-
     const res = await fetch(
       `https://suap.ifmt.edu.br/api/v2/minhas-informacoes/boletim/${new Date().getFullYear()}/1/`,
       {
