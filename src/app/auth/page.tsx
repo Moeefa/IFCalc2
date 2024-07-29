@@ -27,9 +27,8 @@ const socials = [
   },
 ];
 
-const csrfToken = cookies().get("authjs.csrf-token")?.value ?? "";
-
 export default function SignIn() {
+  const csrfToken = cookies().get("authjs.csrf-token")?.value ?? "";
   return (
     <div className="flex justify-center w-full">
       <Card className="w-full sm:w-3/4 sm:max-w-96 min-h-[calc(100vh-160px)] flex flex-col">
