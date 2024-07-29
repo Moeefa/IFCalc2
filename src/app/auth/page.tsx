@@ -1,3 +1,4 @@
+import { providerMap, signIn } from "@/auth";
 import {
   Card,
   CardContent,
@@ -5,15 +6,15 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { providerMap, signIn } from "@/auth";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Discord } from "@/components/icons/socials/discord";
 import { Github } from "@/components/icons/socials/github";
-import Image from "next/image";
 import { Instagram } from "@/components/icons/socials/instagram";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { cookies } from "next/headers";
+import Image from "next/image";
 
 const socials = [
   {
@@ -25,6 +26,8 @@ const socials = [
     icons: [Instagram],
   },
 ];
+
+const csrfToken = cookies().get("authjs.csrf-token")?.value ?? "";
 
 export default function SignIn() {
   return (
@@ -54,6 +57,8 @@ export default function SignIn() {
                 }
               }}
             >
+              <input type="hidden" name="csrfToken" value={csrfToken} />
+
               <Button className="w-full">{provider.name}</Button>
             </form>
           ))}
