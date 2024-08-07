@@ -1,4 +1,4 @@
-import { providerMap, signIn } from "@/auth";
+import { providerMap } from "@/auth";
 import {
   Card,
   CardContent,
@@ -7,13 +7,13 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 
+import { SignIn } from "@/components/auth-buttons";
 import { Discord } from "@/components/icons/socials/discord";
 import { Github } from "@/components/icons/socials/github";
+import { Gmail } from "@/components/icons/socials/gmail";
 import { Instagram } from "@/components/icons/socials/instagram";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { cookies } from "next/headers";
 import Image from "next/image";
 
 const socials = [
@@ -25,10 +25,13 @@ const socials = [
     username: "@schneider_com_x",
     icons: [Instagram],
   },
+  {
+    username: "moeefa@protonmail.com",
+    icons: [Gmail],
+  },
 ];
 
-export default function SignIn() {
-  const csrfToken = cookies().get("authjs.csrf-token")?.value ?? "";
+export default async function SignInPage() {
   return (
     <div className="flex justify-center w-full">
       <Card className="w-full sm:w-3/4 sm:max-w-96 min-h-[calc(100vh-160px)] flex flex-col">
@@ -44,22 +47,14 @@ export default function SignIn() {
           <p className="text-sm text-muted-foreground">Entrar com:</p>
 
           {Object.values(providerMap).map((provider) => (
-            <form
+            <SignIn
               key={provider.id}
+              provider={provider.id}
+              variant="default"
               className="w-full"
-              action={async () => {
-                "use server";
-                try {
-                  await signIn(provider.id);
-                } catch (error) {
-                  throw error;
-                }
-              }}
             >
-              <input type="hidden" name="csrfToken" value={csrfToken} />
-
-              <Button className="w-full">{provider.name}</Button>
-            </form>
+              {provider.name}
+            </SignIn>
           ))}
         </CardContent>
         <Separator className="mt-auto" />

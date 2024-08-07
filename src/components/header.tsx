@@ -1,13 +1,13 @@
-import { Coffee, LogIn, LogOut } from "lucide-react";
+import { LogIn, LogOut } from "lucide-react";
 import { SignIn, SignOut } from "./auth-buttons";
 
-import { Button } from "./ui/button";
-import Link from "next/link";
-import { ToggleTheme } from "./toggle-theme";
 import { auth } from "@/auth";
+import { cookies } from "next/headers";
+import { ToggleTheme } from "./toggle-theme";
 
 export const Header = async () => {
   const session = await auth();
+  const csrfToken = cookies().get("authjs.csrf-token")?.value ?? "";
 
   return (
     <div className="fixed flex items-center w-full z-10 filter backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b p-2 px-8">
@@ -21,15 +21,14 @@ export const Header = async () => {
       <div className="flex flex-1 justify-end">
         <div className="flex justify-between w-full flex-1 sm:flex-none sm:w-fit items-center gap-3">
           <ToggleTheme />
-          {session?.user ? (
-            <SignOut>
+          {session?.user ?
+            <SignOut variant="outline">
               Encerrar sessão <LogOut className="w-4 h-4 ml-2" />
             </SignOut>
-          ) : (
-            <SignIn>
+          : <SignIn variant="outline">
               Entrar com o SUAP <LogIn className="w-4 h-4 ml-2" />
             </SignIn>
-          )}
+          }
         </div>
       </div>
     </div>

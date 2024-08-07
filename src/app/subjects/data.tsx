@@ -94,7 +94,7 @@ export default async function Data() {
     return (
       <div className="flex items-center justify-center">
         <p className="leading-7 max-w-48 text-center text-pretty">
-          Entre com o SUAP para visualizar suas matérias e notas.
+          Entre com o SUAP para visualizar suas matérias e notas
         </p>
       </div>
     );
@@ -103,7 +103,7 @@ export default async function Data() {
     return (
       <div className="flex items-center justify-center">
         <p className="leading-7 max-w-48 text-center text-pretty">
-          Nenhuma matéria encontrada.
+          Nenhuma matéria encontrada
         </p>
       </div>
     );

@@ -2,26 +2,27 @@ import { signIn, signOut } from "@/auth";
 
 import { Button } from "./ui/button";
 
-export function SignIn({
+export async function SignIn({
   provider,
   children,
   ...props
 }: { provider?: string } & React.ComponentPropsWithRef<typeof Button>) {
   return (
     <form
+      className={props.className}
       action={async () => {
         "use server";
         await signIn(provider);
       }}
     >
-      <Button variant="outline" {...props}>
+      <Button type="submit" {...props}>
         {children}
       </Button>
     </form>
   );
 }
 
-export function SignOut({
+export async function SignOut({
   children,
   ...props
 }: React.ComponentPropsWithRef<typeof Button>) {
@@ -32,7 +33,7 @@ export function SignOut({
         await signOut();
       }}
     >
-      <Button variant="outline" {...props}>
+      <Button type="submit" {...props}>
         {children}
       </Button>
     </form>
