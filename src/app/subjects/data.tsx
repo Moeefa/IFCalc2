@@ -16,11 +16,24 @@ async function getData(): Promise<ReportResponse> {
   if (!session) return "Unauthorized";
 
   /*
+   * We get the periods from the API to get the most recent period.
+   * If the user doesn't have any periods, we return a "Not Found" message.
+   */
+  const periods = await getPeriods();
+
+  if (periods === "Unauthorized") return "Unauthorized";
+  if (periods === "Not Found") return "Not Found";
+
+  const period = periods.at(0);
+
+  /*
    * We fetch the data from the API and parse it to JSON.
    * It isn't caching the response so we can get the most recent data.
    */
   const res = await fetch(
-    `https://suap.ifmt.edu.br/api/v2/minhas-informacoes/boletim/${new Date().getFullYear()}/1/`,
+    `https://suap.ifmt.edu.br/api/v2/minhas-informacoes/boletim/${
+      period?.ano_letivo || new Date().getFullYear()
+    }/${period?.periodo_letivo || 1}/`,
     {
       method: "GET",
       cache: "no-store",
@@ -39,13 +52,13 @@ async function getData(): Promise<ReportResponse> {
   if (data.detail) return "Not Found";
 
   /*
-   * We filter out the subjects that have been transferred to another course.
+   * Filter out the subjects that have been transferred to another course.
    * Then we map the subjects to an array of objects with a simplified and readable structure.
    */
   const filtered = data.filter((a) => a.situacao !== "Transferido");
   const subjects = filtered.reduce((a: Subject[], b) => {
     /*
-     * We create an array with the grades of each bimester and replace the comma with a dot to parse it to a number later.
+     * Create an array with the grades of each bimester and replace the comma with a dot to parse it to a number later.
      */
     const grades = [
       b.nota_etapa_1.nota,
@@ -59,7 +72,7 @@ async function getData(): Promise<ReportResponse> {
       {
         id: b.codigo_diario,
         /*
-         * We get the name of the subject and remove the roman numerals from the end.
+         * Get the name of the subject and remove the roman numerals from the end.
          */
         name: b.disciplina
           .slice(b.disciplina.indexOf("-") + 1, b.disciplina.length)
@@ -67,7 +80,7 @@ async function getData(): Promise<ReportResponse> {
           .trim(),
         grades,
         /*
-         * We get the final grade of the subject and replace the comma with a dot to parse it to a number later.
+         * Get the final grade of the subject and replace the comma with a dot to parse it to a number later.
          * If the final grade is empty, we calculate it based on the bimester grades.
          */
         final:
@@ -85,6 +98,33 @@ async function getData(): Promise<ReportResponse> {
   }, []);
 
   return subjects;
+}
+
+async function getPeriods() {
+  const session = await auth();
+
+  if (!session) return "Unauthorized";
+
+  const res = await fetch(
+    "https://suap.ifmt.edu.br/api/v2/minhas-informacoes/meus-periodos-letivos/",
+    {
+      method: "GET",
+      cache: "default",
+      signal: AbortSignal.timeout(15_000),
+      headers: {
+        Authorization: `Bearer ${session.access_token}`,
+      },
+    }
+  );
+
+  const data: { detail?: string } & {
+    periodo_letivo: number;
+    ano_letivo: number;
+  }[] = await res.json();
+
+  if (data.detail) return "Not Found";
+
+  return data;
 }
 
 export default async function Data() {
