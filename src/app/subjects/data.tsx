@@ -100,11 +100,17 @@ async function getData(): Promise<ReportResponse> {
   return subjects;
 }
 
-async function getPeriods() {
+export async function getPeriods() {
   const session = await auth();
 
+  /*
+   * If the user isn't authenticated, we return an "Unauthorized" message.
+   */
   if (!session) return "Unauthorized";
 
+  /*
+   * We fetch the periods from the API and parse it to JSON.
+   */
   const res = await fetch(
     "https://suap.ifmt.edu.br/api/v2/minhas-informacoes/meus-periodos-letivos/",
     {
@@ -122,6 +128,10 @@ async function getPeriods() {
     ano_letivo: number;
   }[] = await res.json();
 
+  /*
+   * If the response contains a `detail` key, it means that the API returned an error or didn't find any data.
+   * Currently handling it as a "Not Found" message only.
+   */
   if (data.detail) return "Not Found";
 
   return data;
