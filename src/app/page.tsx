@@ -35,7 +35,7 @@ export default async function Home() {
         <h4 className="text-sm font-medium leading-none px-3 py-3 h-9 mb-2 flex gap-2">
           Matérias <PencilRuler className="w-4 h-4" />{" "}
           {typeof period !== "string" && (
-            <Badge>
+            <Badge className="h-4">
               {period?.ano_letivo}/{period?.periodo_letivo}
             </Badge>
           )}
