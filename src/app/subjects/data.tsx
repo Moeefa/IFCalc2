@@ -2,9 +2,14 @@ import type {
   ReportResponse,
   SuapResponse,
   Subject,
-} from "../../../types/responses";
+} from "@/../types/responses";
 
+import { Badge } from "@/components/ui/badge";
 import List from "@/app/subjects/list";
+import Loading from "@/app/subjects/loading";
+import { PencilRuler } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Suspense } from "react";
 import { auth } from "@/auth";
 
 async function getData(): Promise<ReportResponse> {
@@ -24,31 +29,38 @@ async function getData(): Promise<ReportResponse> {
   if (periods === "Unauthorized") return "Unauthorized";
   if (periods === "Not Found") return "Not Found";
 
-  const period = periods.at(0);
-
   /*
-   * We fetch the data from the API and parse it to JSON.
+   * We fetch the data from the API and test for each period if the data is valid.
    * It isn't caching the response so we can get the most recent data.
-   */
-  const res = await fetch(
-    `https://suap.ifmt.edu.br/api/v2/minhas-informacoes/boletim/${
-      period?.ano_letivo || new Date().getFullYear()
-    }/${period?.periodo_letivo || 1}/`,
-    {
-      method: "GET",
-      cache: "no-store",
-      signal: AbortSignal.timeout(15_000),
-      headers: {
-        Authorization: `Bearer ${session.access_token}`,
-      },
-    }
-  );
-  const data: SuapResponse[] & { detail?: string } = await res.json();
-
-  /*
    * If the response contains a `detail` key, it means that the API returned an error or didn't find any data.
    * Currently handling it as a "Not Found" message only.
    */
+  let data: SuapResponse[] & { detail?: string } = [];
+  let period: { periodo_letivo: number; ano_letivo: number } = {
+    periodo_letivo: 1,
+    ano_letivo: new Date().getFullYear(),
+  };
+
+  for (const p of periods) {
+    const res = await fetch(
+      `https://suap.ifmt.edu.br/api/v2/minhas-informacoes/boletim/${p.ano_letivo}/${p.periodo_letivo}/`,
+      {
+        method: "GET",
+        cache: "no-store",
+        signal: AbortSignal.timeout(15_000),
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      }
+    );
+
+    if (!data.detail) {
+      period = p;
+      data = await res.json();
+      break;
+    }
+  }
+
   if (data.detail) return "Not Found";
 
   /*
@@ -97,7 +109,7 @@ async function getData(): Promise<ReportResponse> {
     ];
   }, []);
 
-  return subjects;
+  return { subjects, period };
 }
 
 export async function getPeriods() {
@@ -140,23 +152,43 @@ export async function getPeriods() {
 export default async function Data() {
   const data = await getData();
 
-  if (data === "Unauthorized")
-    return (
-      <div className="flex items-center justify-center">
-        <p className="leading-7 max-w-48 text-center text-pretty">
-          Entre com o SUAP para visualizar suas matérias e notas
-        </p>
-      </div>
-    );
+  const Subjects = () => {
+    if (data === "Unauthorized")
+      return (
+        <div className="flex items-center justify-center">
+          <p className="leading-7 max-w-48 text-center text-pretty">
+            Entre com o SUAP para visualizar suas matérias e notas
+          </p>
+        </div>
+      );
 
-  if (data === "Not Found")
-    return (
-      <div className="flex items-center justify-center">
-        <p className="leading-7 max-w-48 text-center text-pretty">
-          Nenhuma matéria encontrada
-        </p>
-      </div>
-    );
+    if (data === "Not Found")
+      return (
+        <div className="flex items-center justify-center">
+          <p className="leading-7 max-w-48 text-center text-pretty">
+            Nenhuma matéria encontrada
+          </p>
+        </div>
+      );
 
-  return <List data={data} />;
+    return <List data={data.subjects} />;
+  };
+
+  return (
+    <>
+      <h4 className="text-sm font-medium leading-none px-3 py-3 h-9 mb-2 flex gap-2">
+        Matérias <PencilRuler className="w-4 h-4" />{" "}
+        {typeof data !== "string" && (
+          <Badge className="h-4">
+            {data.period.ano_letivo}/{data.period.periodo_letivo}
+          </Badge>
+        )}
+      </h4>
+      <ScrollArea className="w-full sm:h-full h-96 rounded-xl border shadow [&>div>div]:!block [&>div>div]:w-full [&>div>div]:h-full [&>div>div>div]:h-full">
+        <Suspense fallback={<Loading />}>
+          <Subjects />
+        </Suspense>
+      </ScrollArea>
+    </>
+  );
 }

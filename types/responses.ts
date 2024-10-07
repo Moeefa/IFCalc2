@@ -41,4 +41,10 @@ export type Subject = {
   studying: boolean;
 };
 
-export type ReportResponse = "Unauthorized" | "Not Found" | Subject[];
+export type ReportResponse =
+  | "Unauthorized"
+  | "Not Found"
+  | {
+      subjects: Subject[];
+      period: { periodo_letivo: number; ano_letivo: number };
+    };
