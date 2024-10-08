@@ -2,6 +2,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import Bimonthly from "@/components/tabs/bimonthly";
 import Data from "@/app/subjects/data";
+import Loading from "@/app/subjects/loading";
+import { Suspense } from "react";
 import Yearly from "@/components/tabs/yearly";
 
 export default async function Home() {
@@ -23,7 +25,9 @@ export default async function Home() {
       <div className="block sm:hidden absolute left-0 bottom-[25.5rem] m-auto border-b w-full h-5"></div>
 
       <div className="flex flex-col items-center min-w-72 h-[400px]">
-        <Data />
+        <Suspense fallback={<Loading />}>
+          <Data />
+        </Suspense>
       </div>
     </div>
   );

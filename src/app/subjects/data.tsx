@@ -6,10 +6,8 @@ import type {
 
 import { Badge } from "@/components/ui/badge";
 import List from "@/app/subjects/list";
-import Loading from "@/app/subjects/loading";
 import { PencilRuler } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Suspense } from "react";
 import { auth } from "@/auth";
 
 async function getData(): Promise<ReportResponse> {
@@ -185,9 +183,8 @@ export default async function Data() {
         )}
       </h4>
       <ScrollArea className="w-full sm:h-full h-96 rounded-xl border shadow [&>div>div]:!block [&>div>div]:w-full [&>div>div]:h-full [&>div>div>div]:h-full">
-        <Suspense fallback={<Loading />}>
-          <Subjects />
-        </Suspense>
+        =
+        <Subjects />
       </ScrollArea>
     </>
   );
