@@ -54,7 +54,7 @@ async function getData(): Promise<ReportResponse> {
       }
     );
 
-    if (!data.detail) {
+    if (res.status !== 404) {
       period = p;
       data = await res.json();
       break;
