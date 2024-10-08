@@ -183,7 +183,6 @@ export default async function Data() {
         )}
       </h4>
       <ScrollArea className="w-full sm:h-full h-96 rounded-xl border shadow [&>div>div]:!block [&>div>div]:w-full [&>div>div]:h-full [&>div>div>div]:h-full">
-        =
         <Subjects />
       </ScrollArea>
     </>
