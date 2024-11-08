@@ -9,11 +9,21 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ChangeEvent, useState } from "react";
+import { MinusCircle, MinusIcon, PlusCircle, PlusIcon } from "lucide-react";
+import {
+  TextureCard,
+  TextureCardContent,
+  TextureCardDescription,
+  TextureCardFooter,
+  TextureCardHeader,
+  TextureCardStyled,
+  TextureCardTitle,
+} from "@/components/ui/texture-card";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import { PlusCircle } from "lucide-react";
+import { TextureButton } from "@/components/ui/texture-button";
 
 export default function Biannual() {
   const [inputs, setInputs] = useState<number[]>([0]);
@@ -32,24 +42,32 @@ export default function Biannual() {
     });
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex justify-between items-center">
+    <TextureCardStyled>
+      <TextureCardHeader className="p-4">
+        <TextureCardTitle className="flex justify-between items-center">
           Média semestral{" "}
-          <Button
-            size="icon"
-            variant="ghost"
-            className="rounded-full"
-            onClick={() => setInputs([...inputs, 0])}
-          >
-            <PlusCircle />
-          </Button>
-        </CardTitle>
-        <CardDescription>
+          <div className="flex gap-1">
+            <TextureButton
+              variant="destructive"
+              size="icon"
+              onClick={() => setInputs([...inputs.slice(0, -1)])}
+            >
+              <MinusIcon className="h-4 w-4" />
+            </TextureButton>
+            <TextureButton
+              variant="primary"
+              size="icon"
+              onClick={() => setInputs([...inputs, 0])}
+            >
+              <PlusIcon className="h-4 w-4" />
+            </TextureButton>
+          </div>
+        </TextureCardTitle>
+        <TextureCardDescription>
           Cálculo da média aritmética das notas do semestre.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-2">
+        </TextureCardDescription>
+      </TextureCardHeader>
+      <TextureCardContent className="space-y-2">
         <div className="grid grid-cols-2 gap-2 gap-x-4">
           {inputs.map((_, i) => (
             <div className="space-y-1" key={i}>
@@ -58,7 +76,7 @@ export default function Biannual() {
                 type="number"
                 data-index={i}
                 data-invalid={inputs[i] < 0 || inputs[i] > 10}
-                className="data-[invalid=true]:border-red-700 data-[invalid=true]:ring-red-300"
+                className="px-4 py-2 rounded-md border border-neutral-300 dark:border-neutral-700 bg-white/80 dark:bg-neutral-800/80 placeholder-neutral-400 dark:placeholder-neutral-500 data-[invalid=true]:border-red-700 data-[invalid=true]:ring-red-300"
                 onChange={handleChange}
                 id={`grade-${i + 1}-y`}
                 placeholder="Entre 0 e 10"
@@ -66,8 +84,8 @@ export default function Biannual() {
             </div>
           ))}
         </div>
-      </CardContent>
-      <CardFooter className="flex bg-muted rounded-b-xl flex-col border-t pt-4 items-center justify-center">
+      </TextureCardContent>
+      <TextureCardFooter className="flex rounded-b-[20px] border-t border-border flex-col pt-4 items-center justify-center dark:bg-neutral-800 bg-stone-100">
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
           {Number(result.toPrecision(2)) < 6 ? "Reprovado" : "Aprovado"}
         </h4>
@@ -77,7 +95,7 @@ export default function Biannual() {
             maximumFractionDigits: 1,
           })}
         </small>
-      </CardFooter>
-    </Card>
+      </TextureCardFooter>
+    </TextureCardStyled>
   );
 }

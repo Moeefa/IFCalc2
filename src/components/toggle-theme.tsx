@@ -10,6 +10,7 @@ import {
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { TextureButton } from "@/components/ui/texture-button";
 import { useTheme } from "next-themes";
 
 const useHasMounted = () => {
@@ -30,14 +31,13 @@ export function ToggleTheme() {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button
-            size="icon"
+          <TextureButton
+            variant="icon"
             data-theme={resolvedTheme || "light"}
-            className="group"
+            className="group size-10"
             onClick={() =>
               setTheme(resolvedTheme === "dark" ? "light" : "dark")
             }
-            variant="outline"
           >
             <div className="group-data-[theme=dark]:rotate-180 transition-transform delay-150 duration-300">
               {hasMounted && resolvedTheme === "dark" ? (
@@ -46,7 +46,7 @@ export function ToggleTheme() {
                 <Moon className="w-4 h-4" />
               )}
             </div>
-          </Button>
+          </TextureButton>
         </TooltipTrigger>
         <TooltipContent>
           <p>Alternar temas</p>

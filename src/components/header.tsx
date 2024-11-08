@@ -1,9 +1,9 @@
 import { LogIn, LogOut } from "lucide-react";
 import { SignIn, SignOut } from "./auth-buttons";
 
+import { ToggleTheme } from "./toggle-theme";
 import { auth } from "@/auth";
 import { cookies } from "next/headers";
-import { ToggleTheme } from "./toggle-theme";
 
 export const Header = async () => {
   const session = await auth();
@@ -21,14 +21,15 @@ export const Header = async () => {
       <div className="flex flex-1 justify-end">
         <div className="flex justify-between w-full flex-1 sm:flex-none sm:w-fit items-center gap-3">
           <ToggleTheme />
-          {session?.user ?
-            <SignOut variant="outline">
+          {session?.user ? (
+            <SignOut variant="destructive">
               Encerrar sessão <LogOut className="w-4 h-4 ml-2" />
             </SignOut>
-          : <SignIn variant="outline">
+          ) : (
+            <SignIn variant="accent">
               Entrar com o SUAP <LogIn className="w-4 h-4 ml-2" />
             </SignIn>
-          }
+          )}
         </div>
       </div>
     </div>

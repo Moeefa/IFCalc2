@@ -3,6 +3,11 @@ import type {
   SuapResponse,
   Subject,
 } from "@/../types/responses";
+import {
+  TextureCard,
+  TextureCardContent,
+  TextureCardStyled,
+} from "@/components/ui/texture-card";
 
 import { Badge } from "@/components/ui/badge";
 import List from "@/app/subjects/list";
@@ -169,7 +174,11 @@ export default async function Data() {
         </div>
       );
 
-    return <List data={data.subjects} />;
+    return (
+      <ScrollArea className="rounded-[20px]">
+        <List data={data.subjects} />
+      </ScrollArea>
+    );
   };
 
   return (
@@ -182,9 +191,11 @@ export default async function Data() {
           </Badge>
         )}
       </h4>
-      <ScrollArea className="w-full sm:h-full h-96 rounded-xl border shadow [&>div>div]:!block [&>div>div]:w-full [&>div>div]:h-full [&>div>div>div]:h-full">
-        <Subjects />
-      </ScrollArea>
+      <TextureCardStyled className="w-full sm:h-full h-96 border [&>div>div]:!block [&>div>div]:w-full [&>div>div]:h-full [&>div>div>div]:h-full">
+        <TextureCardContent className="p-0">
+          <Subjects />
+        </TextureCardContent>
+      </TextureCardStyled>
     </>
   );
 }

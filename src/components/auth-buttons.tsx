@@ -1,12 +1,13 @@
 import { signIn, signOut } from "@/auth";
 
 import { Button } from "./ui/button";
+import { TextureButton } from "@/components/ui/texture-button";
 
 export async function SignIn({
   provider,
   children,
   ...props
-}: { provider?: string } & React.ComponentPropsWithRef<typeof Button>) {
+}: { provider?: string } & React.ComponentPropsWithRef<typeof TextureButton>) {
   return (
     <form
       className={props.className}
@@ -15,9 +16,9 @@ export async function SignIn({
         await signIn(provider);
       }}
     >
-      <Button type="submit" {...props}>
+      <TextureButton type="submit" {...props}>
         {children}
-      </Button>
+      </TextureButton>
     </form>
   );
 }
@@ -25,7 +26,7 @@ export async function SignIn({
 export async function SignOut({
   children,
   ...props
-}: React.ComponentPropsWithRef<typeof Button>) {
+}: React.ComponentPropsWithRef<typeof TextureButton>) {
   return (
     <form
       action={async () => {
@@ -33,9 +34,9 @@ export async function SignOut({
         await signOut();
       }}
     >
-      <Button type="submit" {...props}>
+      <TextureButton type="submit" {...props}>
         {children}
-      </Button>
+      </TextureButton>
     </form>
   );
 }
