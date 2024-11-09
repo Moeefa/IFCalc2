@@ -158,7 +158,7 @@ export default async function Data() {
   const Subjects = () => {
     if (data === "Unauthorized")
       return (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center h-full">
           <p className="leading-7 max-w-48 text-center text-pretty">
             Entre com o SUAP para visualizar suas matérias e notas
           </p>
@@ -167,7 +167,7 @@ export default async function Data() {
 
     if (data === "Not Found")
       return (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center h-full">
           <p className="leading-7 max-w-48 text-center text-pretty">
             Nenhuma matéria encontrada
           </p>
