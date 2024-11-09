@@ -4,7 +4,9 @@ import { cn } from "@/lib/utils";
 
 const TextureCardStyled = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { children?: React.ReactNode }
+  React.HTMLAttributes<HTMLDivElement> & {
+    children?: React.ReactNode;
+  }
 >(({ className, children, ...props }, ref) => (
   <div
     ref={ref}
@@ -17,25 +19,22 @@ const TextureCardStyled = React.forwardRef<
   >
     {/* Nested structure for aesthetic borders */}
     <div
-      className={cn(
-        "rounded-[23px] border  dark:border-neutral-900/80 border-black/10",
-        className
-      )}
+      className={
+        "rounded-[23px] border h-full w-full  dark:border-neutral-900/80 border-black/10"
+      }
     >
       <div
-        className={cn(
-          "rounded-[22px] border  dark:border-neutral-950 border-white/50",
-          className
-        )}
+        className={
+          "rounded-[22px] border h-full w-full  dark:border-neutral-950 border-white/50"
+        }
       >
         <div
-          className={cn(
-            "rounded-[21px] border  dark:border-neutral-900/70  border-neutral-950/20",
-            className
-          )}
+          className={
+            "rounded-[21px] border h-full w-full  dark:border-neutral-900/70  border-neutral-950/20"
+          }
         >
           {/* Inner content wrapper */}
-          <div className=" w-full border border-white/50 dark:border-neutral-700/50 rounded-[20px] text-neutral-500 ">
+          <div className="h-full w-full border border-white/50 dark:border-neutral-700/50 rounded-[20px] text-neutral-500 flex flex-col">
             {children}
           </div>
         </div>

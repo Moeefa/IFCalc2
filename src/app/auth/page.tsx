@@ -1,4 +1,3 @@
-import { providerMap } from "@/auth";
 import {
   Card,
   CardContent,
@@ -6,15 +5,23 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import {
+  TextureCardContent,
+  TextureCardDescription,
+  TextureCardFooter,
+  TextureCardHeader,
+  TextureCardStyled,
+} from "@/components/ui/texture-card";
 
-import { SignIn } from "@/components/auth-buttons";
+import { Badge } from "@/components/ui/badge";
 import { Discord } from "@/components/icons/socials/discord";
 import { Github } from "@/components/icons/socials/github";
 import { Gmail } from "@/components/icons/socials/gmail";
-import { Instagram } from "@/components/icons/socials/instagram";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
+import { Instagram } from "@/components/icons/socials/instagram";
+import { Separator } from "@/components/ui/separator";
+import { SignIn } from "@/components/auth-buttons";
+import { providerMap } from "@/auth";
 
 const socials = [
   {
@@ -33,32 +40,32 @@ const socials = [
 
 export default async function SignInPage() {
   return (
-    <div className="flex justify-center w-full">
-      <Card className="w-full sm:w-3/4 sm:max-w-96 min-h-[calc(100vh-160px)] flex flex-col">
-        <CardHeader className="flex justify-center items-center rounded-t-xl">
+    <div className="flex justify-center w-full h-full">
+      <TextureCardStyled className="w-full sm:w-3/4 sm:max-w-96 min-h-[calc(100vh-160px)] flex flex-col">
+        <TextureCardHeader className="flex flex-col justify-center items-center rounded-t-xl">
           <Image src="/icon.svg" alt="Logo" width={80} height={80} />
-          <CardDescription className="text-center">
+          <TextureCardDescription className="text-center">
             Faça login com a conta do SUAP de seu Instituto Federal para acessar
             suas notas e frequência
-          </CardDescription>
-        </CardHeader>
+          </TextureCardDescription>
+        </TextureCardHeader>
         <Separator />
-        <CardContent className="p-6 flex flex-col justify-center items-center space-y-1">
+        <TextureCardContent className="p-6 flex flex-col justify-center items-center space-y-1">
           <p className="text-sm text-muted-foreground">Entrar com:</p>
 
           {Object.values(providerMap).map((provider) => (
             <SignIn
               key={provider.id}
               provider={provider.id}
-              variant="default"
+              variant="minimal"
               className="w-full"
             >
               {provider.name}
             </SignIn>
           ))}
-        </CardContent>
+        </TextureCardContent>
         <Separator className="mt-auto" />
-        <CardFooter className="p-3 rounded-b-xl bg-muted">
+        <TextureCardFooter className="p-3 rounded-b-[20px] bg-muted">
           <small className="text-xs text-pretty font-medium leading-none text-center text-muted-foreground">
             Quer ajudar a incluir seu Intituto Federal nessa lista? Entre em
             contato:
@@ -73,8 +80,8 @@ export default async function SignInPage() {
               ))}
             </div>
           </small>
-        </CardFooter>
-      </Card>
+        </TextureCardFooter>
+      </TextureCardStyled>
     </div>
   );
 }

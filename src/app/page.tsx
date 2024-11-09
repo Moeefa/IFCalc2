@@ -27,9 +27,8 @@ export default async function Home() {
         </TabsContent>
       </Tabs>
 
-      <div className="block sm:hidden absolute left-0 bottom-[25.5rem] m-auto border-b w-full h-5"></div>
-
-      <div className="flex flex-col items-center min-w-72 h-[400px]">
+      <div className="flex flex-col items-center min-w-72 relative">
+        <div className="block sm:hidden absolute -left-8 bottom-[28rem] m-auto border-b w-screen h-5"></div>
         <Suspense fallback={<Loading />}>
           <Data />
         </Suspense>

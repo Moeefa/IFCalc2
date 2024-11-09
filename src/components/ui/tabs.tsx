@@ -11,14 +11,22 @@ const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
 >(({ className, ...props }, ref) => (
-  <TabsPrimitive.List
-    ref={ref}
-    className={cn(
-      "inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground",
-      className
-    )}
-    {...props}
-  />
+  <div className="w-full h-[36px] rounded-[16px] border dark:border-neutral-900/80 border-black/10 flex items-center justify-center">
+    <div className="w-full h-full rounded-[15px] border dark:border-neutral-950 border-white/50 flex items-center justify-center">
+      <div className="w-full h-full rounded-[14px] border dark:border-neutral-900/70  border-neutral-950/20 flex items-center justify-center">
+        <div className="w-full h-full flex items-center justify-center">
+          <TabsPrimitive.List
+            ref={ref}
+            className={cn(
+              "inline-flex h-[30px] rounded-[13px] items-center justify-center bg-muted border border-white/50 dark:border-neutral-700/50 px-1 text-muted-foreground",
+              className
+            )}
+            {...props}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
 ));
 TabsList.displayName = TabsPrimitive.List.displayName;
 
@@ -29,7 +37,7 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow",
+      "inline-flex items-center rounded-[10px] justify-center whitespace-nowrap px-3 py-0.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow",
       className
     )}
     {...props}

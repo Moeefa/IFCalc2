@@ -1,17 +1,8 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { ChangeEvent, useState } from "react";
-import { MinusCircle, MinusIcon, PlusCircle, PlusIcon } from "lucide-react";
+import { MinusIcon, PlusIcon } from "lucide-react";
 import {
-  TextureCard,
   TextureCardContent,
   TextureCardDescription,
   TextureCardFooter,
@@ -20,7 +11,6 @@ import {
   TextureCardTitle,
 } from "@/components/ui/texture-card";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { TextureButton } from "@/components/ui/texture-button";
@@ -42,15 +32,17 @@ export default function Biannual() {
     });
 
   return (
-    <TextureCardStyled>
-      <TextureCardHeader className="p-4">
+    <TextureCardStyled className="h-96">
+      <TextureCardHeader className="p-4 shadow-md">
         <TextureCardTitle className="flex justify-between items-center">
           Média semestral{" "}
           <div className="flex gap-1">
             <TextureButton
               variant="destructive"
               size="icon"
-              onClick={() => setInputs([...inputs.slice(0, -1)])}
+              onClick={() => {
+                inputs.length > 1 && setInputs([...inputs.slice(0, -1)]);
+              }}
             >
               <MinusIcon className="h-4 w-4" />
             </TextureButton>
@@ -67,7 +59,7 @@ export default function Biannual() {
           Cálculo da média aritmética das notas do semestre.
         </TextureCardDescription>
       </TextureCardHeader>
-      <TextureCardContent className="space-y-2">
+      <TextureCardContent className="space-y-2 max-h-full overflow-auto">
         <div className="grid grid-cols-2 gap-2 gap-x-4">
           {inputs.map((_, i) => (
             <div className="space-y-1" key={i}>
@@ -85,7 +77,7 @@ export default function Biannual() {
           ))}
         </div>
       </TextureCardContent>
-      <TextureCardFooter className="flex rounded-b-[20px] border-t border-border flex-col pt-4 items-center justify-center dark:bg-neutral-800 bg-stone-100">
+      <TextureCardFooter className="mt-auto flex rounded-b-[20px] border-t border-border flex-col pt-4 items-center justify-center dark:bg-neutral-800 bg-stone-100">
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
           {Number(result.toPrecision(2)) < 6 ? "Reprovado" : "Aprovado"}
         </h4>

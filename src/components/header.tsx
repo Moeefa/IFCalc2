@@ -3,14 +3,12 @@ import { SignIn, SignOut } from "./auth-buttons";
 
 import { ToggleTheme } from "./toggle-theme";
 import { auth } from "@/auth";
-import { cookies } from "next/headers";
 
 export const Header = async () => {
   const session = await auth();
-  const csrfToken = cookies().get("authjs.csrf-token")?.value ?? "";
 
   return (
-    <div className="fixed flex items-center w-full z-10 filter backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b p-2 px-8">
+    <div className="fixed flex items-center w-full z-10 supports-[backdrop-filter]:filter supports-[backdrop-filter]:backdrop-blur supports-[backdrop-filter]:bg-background/40 border-b p-2 px-8">
       <div className="justify-start">
         {session?.user && (
           <div className="hidden sm:flex justify-center items-center gap-4 text-sm">

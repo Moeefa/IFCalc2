@@ -1,13 +1,5 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { ChangeEvent, useState } from "react";
 import {
   TextureCardContent,
@@ -40,7 +32,7 @@ export default function Yearly() {
     });
 
   return (
-    <TextureCardStyled>
+    <TextureCardStyled className="h-96">
       <TextureCardHeader className="p-4">
         <TextureCardTitle>Média anual</TextureCardTitle>
         <TextureCardDescription>
@@ -65,7 +57,7 @@ export default function Yearly() {
           ))}
         </div>
       </TextureCardContent>
-      <TextureCardFooter className="flex rounded-b-[20px] border-t border-border flex-col pt-4 items-center justify-center dark:bg-neutral-800 bg-stone-100">
+      <TextureCardFooter className="mt-auto flex rounded-b-[20px] border-t border-border flex-col pt-4 items-center justify-center dark:bg-neutral-800 bg-stone-100">
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
           {Number(result.toPrecision(2)) < 6 ? "Reprovado" : "Aprovado"}
         </h4>

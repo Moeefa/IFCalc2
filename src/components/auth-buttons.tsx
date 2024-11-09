@@ -1,6 +1,5 @@
 import { signIn, signOut } from "@/auth";
 
-import { Button } from "./ui/button";
 import { TextureButton } from "@/components/ui/texture-button";
 
 export async function SignIn({

@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/tooltip";
 import { useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
 import { TextureButton } from "@/components/ui/texture-button";
 import { useTheme } from "next-themes";
 

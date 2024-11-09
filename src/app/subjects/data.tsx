@@ -4,7 +4,6 @@ import type {
   Subject,
 } from "@/../types/responses";
 import {
-  TextureCard,
   TextureCardContent,
   TextureCardStyled,
 } from "@/components/ui/texture-card";
@@ -13,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import List from "@/app/subjects/list";
 import { PencilRuler } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Switch } from "@/components/ui/switch";
 import { auth } from "@/auth";
 
 async function getData(): Promise<ReportResponse> {
@@ -175,7 +175,7 @@ export default async function Data() {
       );
 
     return (
-      <ScrollArea className="rounded-[20px]">
+      <ScrollArea className="rounded-[20px] h-full">
         <List data={data.subjects} />
       </ScrollArea>
     );
@@ -191,8 +191,8 @@ export default async function Data() {
           </Badge>
         )}
       </h4>
-      <TextureCardStyled className="w-full sm:h-full h-96 border [&>div>div]:!block [&>div>div]:w-full [&>div>div]:h-full [&>div>div>div]:h-full">
-        <TextureCardContent className="p-0">
+      <TextureCardStyled className="w-full h-96 [&>div>div]:!block [&>div>div]:w-full [&>div>div]:h-full [&>div>div>div]:h-full">
+        <TextureCardContent className="h-full w-full p-0">
           <Subjects />
         </TextureCardContent>
       </TextureCardStyled>
