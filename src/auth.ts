@@ -10,7 +10,7 @@ export const contributors: Contributor[] = [
     name: "Gabriel Mendes",
     origin: "Rio Grande do Norte",
     image: "ifrn_gabriel.jpg",
-    redirect_url: "https://github.com/GabrielMendessDev",
+    redirect_url: "https://www.linkedin.com/in/gabriel-mendes-bb5571264/",
     socials: [
       {
         name: "Instagram",

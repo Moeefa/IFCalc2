@@ -58,7 +58,11 @@ export const Footer = () => {
               {contributors.map((contributor, i) => (
                 <HoverCard key={i}>
                   <HoverCardTrigger asChild>
-                    <Link href={contributor.redirect_url}>
+                    <Link
+                      rel="noopener"
+                      target="_blank"
+                      href={contributor.redirect_url}
+                    >
                       <div className="flex items-center space-x-1">
                         <Avatar className="size-6">
                           <AvatarImage
