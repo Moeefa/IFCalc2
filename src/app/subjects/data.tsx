@@ -18,6 +18,8 @@ import { auth } from "@/auth";
 async function getData(): Promise<ReportResponse> {
   const session = await auth();
 
+  console.log(session);
+
   /*
    * If the user isn't authenticated, we return an "Unauthorized" message.
    */
@@ -47,7 +49,7 @@ async function getData(): Promise<ReportResponse> {
   for (const p of periods) {
     const res = await fetch(
       `https://suap.${
-        session?.provider || "ifmt"
+        session?.provider ?? "ifmt"
       }.edu.br/api/v2/minhas-informacoes/boletim/${p.ano_letivo}/${
         p.periodo_letivo
       }/`,
@@ -132,7 +134,7 @@ export async function getPeriods() {
    */
   const res = await fetch(
     `https://suap.${
-      session?.provider || "ifmt"
+      session?.provider ?? "ifmt"
     }.edu.br/api/v2/minhas-informacoes/meus-periodos-letivos/`,
     {
       method: "GET",
