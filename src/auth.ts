@@ -39,6 +39,12 @@ const providers: Provider[] = [
       url: "https://suap.ifmt.edu.br/o/authorize",
       params: { scope: "email identificacao" },
     },
+    profile(profile) {
+      return {
+        id: profile.identificacao,
+        ...profile,
+      };
+    },
   },
   {
     id: "suap_ifrn",
@@ -49,6 +55,12 @@ const providers: Provider[] = [
     authorization: {
       url: "https://suap.ifrn.edu.br/o/authorize",
       params: { scope: "email identificacao" },
+    },
+    profile(profile) {
+      return {
+        id: profile.identificacao,
+        ...profile,
+      };
     },
   },
 ];
