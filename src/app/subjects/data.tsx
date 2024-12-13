@@ -86,7 +86,9 @@ async function getData(): Promise<ReportResponse> {
       b.nota_etapa_2.nota,
       b.nota_etapa_3.nota,
       b.nota_etapa_4.nota,
-    ].map((a) => a.replace(",", "."));
+    ].map((a) =>
+      typeof a === "string" ? a.replace(",", ".") : (a / 10).toFixed(1)
+    );
 
     return [
       ...a,

@@ -9,7 +9,7 @@ export type SuapResponse = {
   situacao: string;
   quantidade_avaliacoes: number;
   nota_etapa_1: {
-    nota: string;
+    nota: string | number;
     faltas: number;
   };
   nota_etapa_2: {
