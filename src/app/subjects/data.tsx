@@ -46,7 +46,11 @@ async function getData(): Promise<ReportResponse> {
 
   for (const p of periods) {
     const res = await fetch(
-      `https://suap.${session.provider}.edu.br/api/v2/minhas-informacoes/boletim/${p.ano_letivo}/${p.periodo_letivo}/`,
+      `https://suap.${
+        session?.provider || "ifmt"
+      }.edu.br/api/v2/minhas-informacoes/boletim/${p.ano_letivo}/${
+        p.periodo_letivo
+      }/`,
       {
         method: "GET",
         cache: "no-store",
@@ -127,7 +131,9 @@ export async function getPeriods() {
    * We fetch the periods from the API and parse it to JSON.
    */
   const res = await fetch(
-    `https://suap.${session.provider}.edu.br/api/v2/minhas-informacoes/meus-periodos-letivos/`,
+    `https://suap.${
+      session?.provider || "ifmt"
+    }.edu.br/api/v2/minhas-informacoes/meus-periodos-letivos/`,
     {
       method: "GET",
       cache: "default",
