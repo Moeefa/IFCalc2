@@ -18,8 +18,6 @@ import { auth } from "@/auth";
 async function getData(): Promise<ReportResponse> {
   const session = await auth();
 
-  console.log(session);
-
   /*
    * If the user isn't authenticated, we return an "Unauthorized" message.
    */
