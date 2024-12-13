@@ -19,6 +19,7 @@ import { Github } from "@/components/icons/socials/github";
 import { Gmail } from "@/components/icons/socials/gmail";
 import Image from "next/image";
 import { Instagram } from "@/components/icons/socials/instagram";
+import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { SignIn } from "@/components/auth-buttons";
 import { providerMap } from "@/auth";
@@ -44,7 +45,7 @@ export default async function SignInPage() {
       <TextureCardStyled className="w-full sm:w-3/4 sm:max-w-96 min-h-[calc(100vh-160px)] flex flex-col">
         <TextureCardHeader className="flex flex-col justify-center items-center rounded-t-xl">
           <Image src="/icon.svg" alt="Logo" width={80} height={80} />
-          <TextureCardDescription className="text-center">
+          <TextureCardDescription className="text-center pt-1">
             Faça login com a conta do SUAP de seu Instituto Federal para acessar
             suas notas e frequência
           </TextureCardDescription>

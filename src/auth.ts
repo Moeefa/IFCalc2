@@ -39,12 +39,6 @@ const providers: Provider[] = [
       url: "https://suap.ifmt.edu.br/o/authorize",
       params: { scope: "email identificacao" },
     },
-    profile(profile) {
-      return {
-        id: profile.identificacstao,
-        ...profile,
-      };
-    },
   },
   {
     id: "suap_ifrn",
@@ -55,12 +49,6 @@ const providers: Provider[] = [
     authorization: {
       url: "https://suap.ifrn.edu.br/o/authorize",
       params: { scope: "email identificacao" },
-    },
-    profile(profile) {
-      return {
-        id: profile.identificacao,
-        ...profile,
-      };
     },
   },
 ];
@@ -93,12 +81,14 @@ export const config = {
         session.user.id = token.sub as string;
         session.user.name = token.uid?.nome_social || token.uid?.nome_usual;
         session.user.image = token.uid?.foto;
+        session.provider = token.provider as string;
         session.access_token = token.access_token as string;
       }
 
       return session;
     },
     async jwt({ token, user, account }) {
+      token.provider ??= account?.provider.replace("suap_", "");
       token.access_token ??= account?.access_token;
       token.uid ??= user;
 

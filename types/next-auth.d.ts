@@ -24,6 +24,7 @@ declare module "next-auth" {
     user?: User;
     expires: ISODateString;
     access_token?: string;
+    provider?: string;
   }
 }
 
