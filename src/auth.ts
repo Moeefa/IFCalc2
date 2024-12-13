@@ -5,7 +5,28 @@ import type { Provider } from "next-auth/providers";
 /*
  * Contributors that helped adding more auth providers.
  */
-export const contributors: Contributor[] = [];
+export const contributors: Contributor[] = [
+  {
+    name: "Gabriel Mendes",
+    origin: "Rio Grande do Norte",
+    image: "/contributors/ifrn_gabriel.jpg",
+    redirect_url: "https://github.com/GabrielMendessDev",
+    socials: [
+      {
+        name: "Instagram",
+        url: "https://www.instagram.com/gabrielmenndess/",
+      },
+      {
+        name: "LinkedIn",
+        url: "https://www.linkedin.com/in/gabriel-mendes-bb5571264/",
+      },
+      {
+        name: "GitHub",
+        url: "https://github.com/GabrielMendessDev",
+      },
+    ],
+  },
+];
 
 const providers: Provider[] = [
   {
@@ -21,6 +42,23 @@ const providers: Provider[] = [
     profile(profile) {
       return {
         id: profile.identificacstao,
+        ...profile,
+      };
+    },
+  },
+  {
+    id: "suap_ifrn",
+    name: "Rio Grande do Norte",
+    type: "oauth",
+    token: "https://suap.ifrn.edu.br/o/token/",
+    userinfo: "https://suap.ifrn.edu.br/api/eu/",
+    authorization: {
+      url: "https://suap.ifrn.edu.br/o/authorize",
+      params: { scope: "email identificacao" },
+    },
+    profile(profile) {
+      return {
+        id: profile.identificacao,
         ...profile,
       };
     },
