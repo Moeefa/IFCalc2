@@ -9,7 +9,7 @@ import Yearly from "@/components/tabs/yearly";
 
 export default async function Home() {
   return (
-    <div className="flex sm:flex-row flex-col justify-center sm:gap-6 gap-12">
+    <div className="flex sm:flex-row flex-col items-center justify-center sm:gap-6 gap-12 w-full">
       <Tabs defaultValue="yearly" className="sm:w-[400px] w-full">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="yearly">Anual</TabsTrigger>

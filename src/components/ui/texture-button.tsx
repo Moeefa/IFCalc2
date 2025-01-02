@@ -10,7 +10,7 @@ const buttonVariantsOuter = cva("", {
   variants: {
     variant: {
       primary:
-        "w-full border border-[1px] dark:border-[2px] border-neutral-900 dark:border-neutral-100 bg-gradient-to-b from-black/70 to-black dark:from-white dark:to-white/80 p-[1px] transition duration-300 ease-in-out ",
+        "w-full border dark:border-[2px] border-neutral-900 dark:border-neutral-100 bg-gradient-to-b from-black/70 to-black dark:from-white dark:to-white/80 p-[1px] transition duration-300 ease-in-out ",
       accent:
         "w-full border-[1px] dark:border-[2px] border-indigo-500 dark:border-neutral-950 bg-gradient-to-b from-indigo-300/90 to-indigo-500 dark:from-indigo-200/70 dark:to-indigo-500 p-[1px] transition duration-300 ease-in-out ",
       destructive:
@@ -18,8 +18,8 @@ const buttonVariantsOuter = cva("", {
       secondary:
         "w-full border-[1px] dark:border-[2px] border-black/20 bg-white/50 dark:border-neutral-950 dark:bg-neutral-600/50 p-[1px] transition duration-300 ease-in-out ",
       minimal:
-        "group  w-full border-[1px] dark:border-[2px] border-black/20 bg-white/50 dark:border-neutral-900/80 dark:bg-neutral-600/80 p-[1px]  active:bg-neutral-200 dark:active:bg-neutral-800 hover:bg-gradient-to-t hover:from-neutral-100 to-white dark:hover:from-neutral-600/50 dark:hover:to-neutral-600/70 active:bg-neutral-200 dark:active:bg-neutral-800",
-      icon: "group rounded-full border dark:border-neutral-950 border-black/10 dark:bg-neutral-600/50 bg-white/50 p-[1px] active:bg-neutral-200 dark:active:bg-neutral-800 hover:bg-gradient-to-t hover:from-neutral-100 to-white dark:hover:from-neutral-700 dark:hover:to-neutral-600 active:bg-neutral-200 dark:active:bg-neutral-800",
+        "group  w-full border-[1px] dark:border-[2px] border-black/20 bg-white/50 dark:border-neutral-900/80 dark:bg-neutral-600/80 p-[1px] hover:bg-gradient-to-t hover:from-neutral-100 to-white dark:hover:from-neutral-600/50 dark:hover:to-neutral-600/70 active:bg-neutral-200 dark:active:bg-neutral-800",
+      icon: "group rounded-full border dark:border-neutral-950 border-black/10 dark:bg-neutral-600/50 bg-white/50 p-[1px] hover:bg-gradient-to-t hover:from-neutral-100 to-white dark:hover:from-neutral-700 dark:hover:to-neutral-600 active:bg-neutral-200 dark:active:bg-neutral-800",
     },
     size: {
       sm: "rounded-[6px]",

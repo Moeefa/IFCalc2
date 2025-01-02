@@ -1,15 +1,12 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+  DropdownMenuItem,
+  DropdownMenuShortcut,
+} from "@/components/ui/dropdown-menu";
+import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { TextureButton } from "@/components/ui/texture-button";
 import { useTheme } from "next-themes";
 
 const useHasMounted = () => {
@@ -27,30 +24,22 @@ export function ToggleTheme() {
   const { resolvedTheme, setTheme } = useTheme();
 
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <TextureButton
-            variant="icon"
-            data-theme={resolvedTheme || "light"}
-            className="group size-10"
-            onClick={() =>
-              setTheme(resolvedTheme === "dark" ? "light" : "dark")
-            }
-          >
-            <div className="group-data-[theme=dark]:rotate-180 transition-transform delay-150 duration-300">
-              {hasMounted && resolvedTheme === "dark" ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
-            </div>
-          </TextureButton>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Alternar temas</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <DropdownMenuItem
+      className="group"
+      data-theme={resolvedTheme}
+      onSelect={(e) => e.preventDefault()}
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+    >
+      Tema {resolvedTheme === "dark" ? "claro" : "escuro"}
+      <DropdownMenuShortcut>
+        <div className="group-data-[theme=dark]:rotate-180 transition-transform delay-150 duration-300">
+          {hasMounted && resolvedTheme === "dark" ? (
+            <Sun className="size-4" />
+          ) : (
+            <Moon className="size-4" />
+          )}
+        </div>
+      </DropdownMenuShortcut>
+    </DropdownMenuItem>
   );
 }

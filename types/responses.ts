@@ -36,7 +36,8 @@ export type Subject = {
   id: string;
   name: string;
   grades: string[];
-  final: string;
+  weightedAverage: string;
+  average: string;
   frequency: number;
   studying: boolean;
 };

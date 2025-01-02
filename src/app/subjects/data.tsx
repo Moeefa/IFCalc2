@@ -8,11 +8,11 @@ import {
   TextureCardStyled,
 } from "@/components/ui/texture-card";
 
+import { AverageBadge } from "@/components/average-badge";
 import { Badge } from "@/components/ui/badge";
 import List from "@/app/subjects/list";
 import { PencilRuler } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Switch } from "@/components/ui/switch";
 import { auth } from "@/auth";
 
 async function getData(): Promise<ReportResponse> {
@@ -102,15 +102,21 @@ async function getData(): Promise<ReportResponse> {
         grades,
         /*
          * Get the final grade of the subject and replace the comma with a dot to parse it to a number later.
-         * If the final grade is empty, we calculate it based on the bimester grades.
+         * If the final grade is empty, we calculate it based on the grades.
          */
-        final:
+        weightedAverage:
           b.media_final_disciplina?.replace(",", ".") ||
           (
             grades
               .map((a) => Number(a))
-              .reduce((a, b, i) => a + (i > 1 ? b * 3 : b * 2) || 0, 0) /
-            (2 + 2 + 3 + 3)
+              .reduce((a, b, i) => a + (i > 1 ? b * 3 : b * 2), 0) / 10
+          ) // 2 + 2 + 3 + 3 = 10 (sum of the weights)
+            .toFixed(1),
+        average:
+          b.media_final_disciplina?.replace(",", ".") ||
+          (
+            grades.map((a) => Number(a)).reduce((a, b) => a + b, 0) /
+            (grades.filter((a) => a !== "").length || 1)
           ).toFixed(1),
         frequency: b.percentual_carga_horaria_frequentada,
         studying: grades.every((a) => a === "" || a === null),
@@ -121,7 +127,7 @@ async function getData(): Promise<ReportResponse> {
   return { subjects, period };
 }
 
-export async function getPeriods() {
+async function getPeriods() {
   const session = await auth();
 
   /*
@@ -191,7 +197,7 @@ export default async function Data() {
 
   return (
     <>
-      <h4 className="text-sm font-medium leading-none px-3 py-3 h-9 mb-2 flex gap-2">
+      <h4 className="text-sm font-medium leading-none px-3 py-3 h-3 mb-2 flex gap-2">
         Matérias <PencilRuler className="w-4 h-4" />{" "}
         {typeof data !== "string" && (
           <Badge className="h-4">
@@ -199,6 +205,8 @@ export default async function Data() {
           </Badge>
         )}
       </h4>
+      <AverageBadge />
+
       <TextureCardStyled className="w-full h-96 [&>div>div]:!block [&>div>div]:w-full [&>div>div]:h-full [&>div>div>div]:h-full">
         <TextureCardContent className="h-full w-full p-0">
           <Subjects />

@@ -1,7 +1,7 @@
 import { LogIn, LogOut } from "lucide-react";
 import { SignIn, SignOut } from "./auth-buttons";
 
-import { ToggleTheme } from "./toggle-theme";
+import { Settings } from "@/components/settings";
 import { auth } from "@/auth";
 
 export const Header = async () => {
@@ -18,7 +18,7 @@ export const Header = async () => {
       </div>
       <div className="flex flex-1 justify-end">
         <div className="flex justify-between w-full flex-1 sm:flex-none sm:w-fit items-center gap-3">
-          <ToggleTheme />
+          <Settings />
           {session?.user ? (
             <SignOut variant="destructive">
               Encerrar sessão <LogOut className="w-4 h-4 ml-2" />
